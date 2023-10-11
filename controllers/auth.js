@@ -23,7 +23,6 @@ const LoginUser = async (req,res) => {
     if(!checkPass){
         throw new UnauthenticatedError('Invalid Password')
     }
-
     const token = user.getToken();
     res.status(StatusCodes.OK).json({user:{name : user.name} , token})
 }
