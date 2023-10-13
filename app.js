@@ -17,13 +17,13 @@ const JobsRoute = require('./routes/jobs')
 const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
 const authenticatedMiddleWare = require('./middleware/authentication')
-app.set('trust proxy' , 1)
-app.use(rateLimit({
-	windowMs: 15 * 60 * 1000, 
-	limit: 100, 
-	standardHeaders: 'draft-7', 
-	legacyHeaders: false, 
-}));
+// app.set('trust proxy' , 1)
+// app.use(rateLimit({
+// 	windowMs: 15 * 60 * 1000, 
+// 	limit: 100, 
+// 	standardHeaders: 'draft-7', 
+// 	legacyHeaders: false, 
+// }));
 app.use(xXssProtection());
 app.use(express.json());
 app.use(helmet());

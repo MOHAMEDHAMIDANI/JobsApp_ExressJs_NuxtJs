@@ -6,21 +6,21 @@
                     <div class="flex flex-col  items-center  mt-10 h-[450px] ">
                         <div class="flex flex-col  w-[300px] mb-3">
                             <label for="name" class="text-start text-md mb-1 capitalize">name</label>
-                            <input id="name" v-model="name" type="text" class="h-8 border-[1px] border-slate-300 bg-gray-50 rounded  outline-purple-400 px-1">
+                            <input required id="name" v-model="name" type="text" class="h-8 border-[1px] border-slate-300 bg-gray-50 rounded  outline-purple-400 px-1">
                         </div>
                         <div class="flex flex-col w-[300px] mb-3">
                             <label for="email" class="text-start text-md mb-1 capitalize">email</label>
-                            <input v-model="email" id="email" type="text" class="h-8 border-[1px] border-slate-300 bg-gray-50 rounded outline-purple-400 px-1">
+                            <input required v-model="email" id="email" type="email" class="h-8 border-[1px] border-slate-300 bg-gray-50 rounded outline-purple-400 px-1">
                         </div>
                         <div class="flex flex-col w-[300px] mb-4">
                             <label for="password" class="text-start text-md mb-1 capitalize">password</label>
-                            <input v-model="password" id="password" type="text" class="h-8 border-[1px] border-slate-300 bg-gray-50 rounded outline-purple-400 px-1">
+                            <input required v-model="password" id="password" type="password" class="h-8 border-[1px] border-slate-300 bg-gray-50 rounded outline-purple-400 px-1">
                         </div>
                         <div class="flex flex-col w-[300px] mb-4">
                             <label for="confirmPassword" class="text-start text-md mb-1 capitalize">confirm your Password</label>
-                            <input v-model="confirmPassword" id="confirmPassword" type="text" class="h-8 border-[1px] border-slate-300 bg-gray-50 rounded outline-purple-400 px-1">
+                            <input required v-model="confirmPassword" id="confirmPassword" type="password" class="h-8 border-[1px] border-slate-300 bg-gray-50 rounded outline-purple-400 px-1">
                         </div>
-                        <button class="bg-purple-600 w-[200px] hover:bg-purple-700 h-8 rounded-lg text-white capitalize text-lg duration-500 hover:scale-110 hover:text-white">
+                        <button @click="register()" class="bg-purple-600 w-[200px] hover:bg-purple-700 h-8 rounded-lg text-white capitalize text-lg duration-500 hover:scale-110 hover:text-white">
                         submit
                     </button>
                     </div>
@@ -33,11 +33,25 @@
 </template>
 
 <script setup lang="ts">
+import { usejobsStore } from '~/stores/jobs';
 import Mainlayout from '../layouts/Mainlayout.vue';
-const email = ref(" ");
-const name = ref(" ");
-const password = ref(" ");
-const confirmPassword = ref(" ");
+const email = ref("");
+const name = ref("");
+const password = ref("");
+const confirmPassword = ref("");
+const store = usejobsStore();
+const register = () => {    
+if(!email.value || !name.value || !password.value || !confirmPassword.value ){
+    console.log('one of them are missing')
+    return
+}
+if(password.value !== confirmPassword.value ){  
+    console.log('cofirm password')
+    return ;
+}
+console.log("you're save to go sir" )
+}
+
 
 </script>
 
