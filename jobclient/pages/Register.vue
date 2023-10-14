@@ -35,12 +35,13 @@
 <script setup lang="ts">
 import { usejobsStore } from '~/stores/jobs';
 import Mainlayout from '../layouts/Mainlayout.vue';
+import axios from 'axios';
 const email = ref("");
 const name = ref("");
 const password = ref("");
 const confirmPassword = ref("");
 const store = usejobsStore();
-const register = () => {    
+const register = async () => {    
 if(!email.value || !name.value || !password.value || !confirmPassword.value ){
     console.log('one of them are missing')
     return
@@ -49,10 +50,20 @@ if(password.value !== confirmPassword.value ){
     console.log('cofirm password')
     return ;
 }
-console.log("you're save to go sir" )
-}
-
-
+const data = await axios.post(`http://localhost:3000/JobsApi/auth/Register`, {email :email.value , name :name.value , password :password.value} , {
+                    headers: {
+                        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTI3ZjJkMWE4ZTBiMjA2YTgyOWRkZGYiLCJuYW1lIjoiTW9oYW1lZCIsImlhdCI6MTY5NzIxNDY0MywiZXhwIjoxNjk5ODA2NjQzfQ.7eACzD1FOT26sZzDFsx7lbR9YU4X_o6vAzWLhG9x1ps`,
+                    },
+                }).then((res) =>  {
+                    console.log(res.data)
+                    return res.data
+                })
+                if(data){
+                    store.token = data.token
+                    store.username = data.user.name
+                    useRouter().push({name : 'Login'})
+                }
+            }
 </script>
 
 <style scoped>

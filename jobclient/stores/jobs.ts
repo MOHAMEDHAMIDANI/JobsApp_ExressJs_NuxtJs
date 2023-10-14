@@ -13,9 +13,9 @@ export const usejobsStore = defineStore('jobs', {
     },
     actions: {
         async fetchdata() {
-            if (!this.token) {
-                throw new Error('No token available.');
-            }
+            // if (!this.token) {
+            //     throw new Error('No token available.');
+            // }
             try {
                 const response  = axios.get('http://localhost:3000/JobsApi/jobs/', {
                     headers: {
@@ -26,12 +26,13 @@ export const usejobsStore = defineStore('jobs', {
                 })
                 console.log(this.allJobs)
             } catch (error) {
+                console.error(error)
             }
         },
         async getSingleData(id :string) {
-            if (!this.token) {
-                throw new Error('No token available.');
-            }
+            // if (!this.token) {
+            //     throw new Error('No token available.');
+            // }
             try {
                 const response  = axios.get(`http://localhost:3000/JobsApi/jobs/${id}`, {
                     headers: {
@@ -42,12 +43,28 @@ export const usejobsStore = defineStore('jobs', {
                 })
                 console.log(this.Job)
             } catch (error) {
+                console.error(error)
+            }
+        },
+        async add(body :  job) {
+            // if (!this.token) {
+            //     throw new Error('No token available.');
+            // }
+            try {
+                const response  = await axios.post(`http://localhost:3000/JobsApi/jobs/`, body , {
+                    headers: {
+                        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTI3ZjJkMWE4ZTBiMjA2YTgyOWRkZGYiLCJuYW1lIjoiTW9oYW1lZCIsImlhdCI6MTY5NzIxNDY0MywiZXhwIjoxNjk5ODA2NjQzfQ.7eACzD1FOT26sZzDFsx7lbR9YU4X_o6vAzWLhG9x1ps`,
+                    },
+                })
+                this.fetchdata()
+            } catch (error) {
+                console.error(error)
             }
         },
         async delete(id : string){
-            if (!this.token) {
-                throw new Error('No token available.');
-            }
+            // if (!this.token) {
+            //     throw new Error('No token available.');
+            // }
             await axios.delete(`http://localhost:3000/JobsApi/jobs/${id}` ,{
                 headers: {
                     Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTI3ZjJkMWE4ZTBiMjA2YTgyOWRkZGYiLCJuYW1lIjoiTW9oYW1lZCIsImlhdCI6MTY5NzIxNDY0MywiZXhwIjoxNjk5ODA2NjQzfQ.7eACzD1FOT26sZzDFsx7lbR9YU4X_o6vAzWLhG9x1ps`,
@@ -56,10 +73,10 @@ export const usejobsStore = defineStore('jobs', {
             console.log('deleted')
             this.fetchdata();
         },
-        async edit(id : string , body : object){
-            if (!this.token) {
-                throw new Error('No token available.');
-            }
+        async edit(id : string , body : job){
+            // if (!this.token) {
+            //     throw new Error('No token available.');
+            // }
             await axios.patch(`http://localhost:3000/JobsApi/jobs/${id}`,body,{
                 headers: {
                     Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTI3ZjJkMWE4ZTBiMjA2YTgyOWRkZGYiLCJuYW1lIjoiTW9oYW1lZCIsImlhdCI6MTY5NzIxNDY0MywiZXhwIjoxNjk5ODA2NjQzfQ.7eACzD1FOT26sZzDFsx7lbR9YU4X_o6vAzWLhG9x1ps`,
@@ -73,3 +90,8 @@ export const usejobsStore = defineStore('jobs', {
         storage: persistedState.localStorage,
     },
 })
+interface job {
+    company : string , 
+    position : string , 
+    status? : string , 
+}
