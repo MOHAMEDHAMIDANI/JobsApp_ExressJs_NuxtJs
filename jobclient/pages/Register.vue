@@ -50,12 +50,7 @@ if(password.value !== confirmPassword.value ){
     console.log('cofirm password')
     return ;
 }
-const data = await axios.post(`http://localhost:3000/JobsApi/auth/Register`, {email :email.value , name :name.value , password :password.value} , {
-                    headers: {
-                        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTI3ZjJkMWE4ZTBiMjA2YTgyOWRkZGYiLCJuYW1lIjoiTW9oYW1lZCIsImlhdCI6MTY5NzIxNDY0MywiZXhwIjoxNjk5ODA2NjQzfQ.7eACzD1FOT26sZzDFsx7lbR9YU4X_o6vAzWLhG9x1ps`,
-                    },
-                }).then((res) =>  {
-                    console.log(res.data)
+const data = await axios.post(`http://localhost:3000/JobsApi/auth/Register`, {email :email.value , name :name.value , password :password.value}).then((res) =>  {
                     return res.data
                 })
                 if(data){
